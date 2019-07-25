@@ -1,8 +1,8 @@
 # GeoBrainFinder
 Built on Matlab R2018a 
 
-Finds "Brain" experiments on GEO by parsing individual experiment and sample pages in the specified range of accession numbers. 
-
+Finds and ranks "Brain" experiments on GEO (by likelyhood) by parsing individual experiment and sample pages in the specified range of accession numbers. 
+Here "Brain" refers to actual brain samples or even samples related to the nervous system. 
 
 Steps to run: 
 1) Clone this repository
