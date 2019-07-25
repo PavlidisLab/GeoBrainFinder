@@ -22,4 +22,9 @@ Optional arguments are passed as: field, value pairs.
 Here's an example of all arguments being used: 
 getBrainMasterGEO('GSE1','GSE133000', 'numThreads',54, 'runGemma',1,'fileToSkip','blacklistedExpsFile', 'gemmaLasteeID',16000); 
 
+
+The program is terminal friendly and can be run by the following CLI: 
+/space/opt/matlab/R2018a/bin/matlab -nodisplay -r "getBrainMasterGEO('GSE1','GSE133000', 'numThreads',48, ...);"
+
+
 See the documentation on the pavlab wiki page for more information and documentation. 
