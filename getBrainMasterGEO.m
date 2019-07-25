@@ -1,4 +1,4 @@
-function y = getBrainMasterGEO(geoStart, geoEnd, varargin)
+function getBrainMasterGEO(geoStart, geoEnd, varargin)
 disp(sprintf('\n\n\n'))
 clc
 userDir = cd;
@@ -25,5 +25,6 @@ end
 % commented line: cd /space/grp/asharma/getBrainExps : for github use, if you want to save the getBrainMaster in a different location, add the cd line with the folder containing all the rest of the files
 cd src
 y = getBrainExpsFromGEO(geoStart,geoEnd, 1,myfilename,numWorkers, runGemma, userDir, lastGemmaID);
-mysystemexit
+cd(userDir)
+if get(0, 'ScreenSize') == [1,1,1024,768] exit(), else return;,end
 end
