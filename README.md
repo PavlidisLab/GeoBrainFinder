@@ -9,10 +9,10 @@ Steps to run:
 2) Run Matlab R2018a (or newer) and set your working directory to this repository (Note: the file "getBrainMasterGEO.m" should be in your working directory). For ex. use: cd /xxx/../GeoBrainFinder
 3) Run the function: getBrainMasterGEO(gseStartAccession, gseEndAccession, ...) 
 
-where 
+where
     gseStartAccesion is a GSE accession number (type: char). For ex : 'GSE1'
     gseEndAccession is a GSE accession number > gseStartAccession (type: char). For ex: 'GSE100'
-  Other optional arguments include: 
+   Other optional arguments include: 
     'numThreads' : number of parallel threads to run (type double)
     'fileToSkip' : a txt file name with GSE accessions to skip .. with all accessions on new lines (type char)  
     'runGemma' : whether or not to make a gemma call (0 or 1)
