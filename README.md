@@ -7,7 +7,7 @@ Finds "Brain" experiments on GEO by parsing individual experiment and sample pag
 Steps to run: 
 1) Clone this repository
 2) Run Matlab R2018a (or newer) and set your working directory to this repository (Note: the file "getBrainMasterGEO.m" should be in your working directory). For ex. use: cd /xxx/../GeoBrainFinder
-3) Run the function: getBrainMasterGEO(gseStartAccession, gseEndAccession, ...) 
+3) Run the function: getBrainMasterGEO(gseStartAccession, gseEndAccession, ...);
 
 where
 (a) gseStartAccesion is a GSE accession number (type: char). For ex : 'GSE1'
