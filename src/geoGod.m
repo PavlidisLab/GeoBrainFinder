@@ -155,7 +155,10 @@ function y = genTextForLogs(url, lookArray,id);
 ind = unique(mystrfind(url,lookArray));
 tempS = "";
 for i = 1:size(ind,1)
-    tempS(i,1) = url(ind(i,1)-20:ind(i,1)+20);
+    try 
+        tempS(i,1) = url(ind(i,1)-20:ind(i,1)+20);
+    catch ME 
+    end
 end
 text = strjoin(tempS,' | ');
 y = strcat(id,":",text," || ");
