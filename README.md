@@ -1,6 +1,8 @@
 # GeoBrainFinder
 Built on Matlab R2018a 
 
+// Designed to update Gemma (for brain experiments). This is a more specific application of 'searchGEO' (coming soon)
+
 Finds and ranks "Brain" experiments on GEO (by likelyhood) by parsing individual experiment and sample pages in the specified range of accession numbers. 
 Here "Brain" refers to actual brain samples or even samples related to the nervous system. 
 
