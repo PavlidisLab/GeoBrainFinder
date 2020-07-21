@@ -1,8 +1,8 @@
 function [y , z] = getGemmaInfo(startAcc,endAcc,varargin);
-% call with (1,1) or (start#,end#), (start,end,dont_authenticate), (start,end,username,password), (start,end,username,password,dont_authenticate)
+% call with (1,1) or (start#,end#)
 y = [];
 z = [];
-p = "YW1hbnNoYXJtYTp0ZW1wUGFzc3dvcmQ";
+p = "s";
 authorize = 1;
 if length(varargin) == 1
     authorize = 0;
@@ -90,7 +90,16 @@ for i = 1:length(q)
 end
 y = strcat('https://gemma.msl.ubc.ca/rest/v2/datasets/',query,'?offset=0&limit=0&sort=%2Bid');
 end
-% function y = combineGemmaJSONchars(j1,j2)
-% y= strcat( j1(1:end-2), ',', j2(10:end));
-% end
-
+function y = combineGemmaJSONchars(j1,j2)
+y= strcat( j1(1:end-2), ',', j2(10:end));
+end
+function y = parseGseAccession(x)
+% x is a length(x) by 1 string array, y is just the double of the
+% accesssion
+y = [];
+t = char(x);
+for i = 1:size(t,1)
+    temp = t(i,1:end);
+    y(i,1) = str2num(temp(4:end));
+end
+end
