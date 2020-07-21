@@ -13,69 +13,64 @@ elseif length(varargin) == 3
     authorize = 0;
 end
 options = weboptions;
+options.CertificateFilename=('');
 options.Timeout = 10000;
 if authorize
 options.HeaderFields = matlab.net.http.field.AuthorizationField("Authorization", strcat("Basic ",p));
 end
-apiHit = [];
+apiHit = '';
 
-% if endAcc == 0
-%     fileID = fopen(startAcc);
-%     scanned = textscan(fileID,'%s');
-%     fclose(fileID);
-%     scannedArray = (string(scanned{:,:}));
-%     i = scannedArray;
-%     disp(i)
-% else i = startAcc:endAcc';
-% end
-
-
-% if (endAcc - startAcc < 1000)
-%     lastTemp = startAcc;
-%     temp = endAcc;
-% else 
-% lastTemp = startAcc;
-% temp = startAcc + 1000;
-% end
+if endAcc ~= 0
+if (endAcc - startAcc < 1000)
+    lastTemp = startAcc;
+    temp = endAcc;
+else 
 lastTemp = startAcc;
 temp = startAcc + 1000;
+end
+else 
+    fileID = fopen(startAcc);
+    scanned = textscan(fileID,'%s');
+    fclose(fileID);
+    scannedArray = (string(scanned{:,:}));
+    i = scannedArray;
+end
 
-setBreak = 0;
 loopNum = 0;
 try 
+if endAcc ~= 0
 while true
-    if temp >= endAcc
-        temp = endAcc;
-        setBreak = 1;
-    end
+    if temp > endAcc ; break ; end
     i = lastTemp:temp;
-    tempHit = jsondecode(char(webread(gemmaQueryBuilder(i),options)));
-    tempHit = tempHit.data;
+    tempHit = char(strjoin(string(cast(webread(gemmaQueryBuilder(i),options) ,'char')),''));
     lastTemp = temp+1;
     temp = temp+1000;
     if ~loopNum
         apiHit = tempHit;
-    else apiHit = [apiHit;tempHit];
+    else apiHit = combineGemmaJSONchars(apiHit,tempHit);
     end
     loopNum = loopNum + 1; 
-    if setBreak
-        break
-    end
 end
-struct = apiHit;
-% struct = jsondecode(apiHit);
-structArray = struct;
-save('nextGemmaAPI','structArray')
-if size(structArray,1) > 1 writetable(struct2table(structArray), 'nextGemmaAPI.txt'), else disp("Not saving gemma call to a text file since size of the call is smaller than 2!"), end
-disp( "Gemma API Call complete ||")
+else 
+    apiHit = char(strjoin(string(cast(webread(gemmaQueryBuilder(i),options) ,'char')),''));
+end
+struct = jsondecode(apiHit);
+structArray = struct.data;
+%save('nextGemmaAPI','structArray')
+temptable2 = struct2table(structArray); 
+vec = 1:size(temptable2,2);
+temptable2 = temptable2(:,setdiff(vec,[24,32]));
+writetable(temptable2, 'nextGemmaAPI.txt')
+disp( "Call complete || CSV saved  ")
 y = structArray;
 z="";
 for i = 1:size(y,1)
     z(i,1) = string(y(i).shortName);
 end
+%exit()
 catch ME
     if string(ME.identifier) == "MATLAB:webservices:HTTP401StatusCodeError"
-        warning(sprintf('Credentials not accepted at the Gemma end. \nEnter your Gemma username and password. To quit the gemma call enter USERNAME: quit'))
+        warning(strcat('Credentials not accepted at the Gemma end. Try entering your Gemma username and password...', newline, 'TO QUIT THE CALL TO THE API, ENTER USERNAME: quit'))
         uname = input('Enter gemma username: ','s');
         if string(uname) ~= "quit"
         pass = input('Enter gemma password: ','s');
