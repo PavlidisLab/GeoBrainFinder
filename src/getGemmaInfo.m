@@ -59,7 +59,7 @@ structArray = struct.data;
 %save('nextGemmaAPI','structArray')
 temptable2 = struct2table(structArray); 
 vec = 1:size(temptable2,2);
-temptable2 = temptable2(:,setdiff(vec,[24,32]));
+temptable2 = temptable2(:,setdiff(vec,[24,32,35,36]));
 writetable(temptable2, 'nextGemmaAPI.txt')
 disp( "Call complete || CSV saved  ")
 y = structArray;
@@ -67,7 +67,7 @@ z="";
 for i = 1:size(y,1)
     z(i,1) = string(y(i).shortName);
 end
-%exit()
+% exit()
 catch ME
     if string(ME.identifier) == "MATLAB:webservices:HTTP401StatusCodeError"
         warning(strcat('Credentials not accepted at the Gemma end. Try entering your Gemma username and password...', newline, 'TO QUIT THE CALL TO THE API, ENTER USERNAME: quit'))
