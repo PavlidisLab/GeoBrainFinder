@@ -1,5 +1,5 @@
 function y = getLastFewMonthsGEO(months)
-% NOTE: Output is GSE accession without the "GSE" infront
+% NOTE: Output is GSE accession without the "GSE" infront; typically you should call about 3 months of GSEs to get the max
 setWebOptions;
 if months < 3
 months = 3; 
