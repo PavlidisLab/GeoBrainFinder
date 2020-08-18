@@ -50,7 +50,7 @@ toSkip = [];
 
 % calls gemma api: getGemmaInfo function file, gemmaEndAccession usually comes from the user file (which is downloaded from the wiki page) and adds the information to the "toSkip" accession list
 if runGemma
-gemmaIDlast = 0;
+gemmaIDlast = 10;
 if length(varargin) ==1 gemmaIDlast = varargin{1,1};, end
 disp('Fetching accessions already on Gemma (to skip)')
 [y,z] = getGemmaInfo(-1,gemmaIDlast);
