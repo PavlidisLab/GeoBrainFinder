@@ -38,24 +38,33 @@ end
 
 loopNum = 0;
 try 
-if endAcc ~= 0
+if startAcc >= 0
 while true
-    if temp > endAcc ; break ; end
+    if temp >= endAcc
+        temp = endAcc;
+        setBreak = 1;
+    end
     i = lastTemp:temp;
-    tempHit = char(strjoin(string(cast(webread(gemmaQueryBuilder(i),options) ,'char')),''));
+    tempHit = jsondecode(char(webread(gemmaQueryBuilder(i),options)));
+    tempHit = tempHit.data;
     lastTemp = temp+1;
     temp = temp+1000;
     if ~loopNum
         apiHit = tempHit;
-    else apiHit = combineGemmaJSONchars(apiHit,tempHit);
+    else apiHit = [apiHit;tempHit];
     end
     loopNum = loopNum + 1; 
+    if setBreak
+        break
+    end
 end
-else 
-    apiHit = char(strjoin(string(cast(webread(gemmaQueryBuilder(i),options) ,'char')),''));
+struct = apiHit;
+else
+struct = jsondecode(char(strjoin(string(cast( webread('https://gemma.msl.ubc.ca/rest/v2/datasets?offset=0&limit=0',options), 'char')),'')));
+struct = struct.data;
 end
-struct = jsondecode(apiHit);
-structArray = struct.data;
+
+
 %save('nextGemmaAPI','structArray')
 temptable2 = struct2table(structArray); 
 vec = 1:size(temptable2,2);
