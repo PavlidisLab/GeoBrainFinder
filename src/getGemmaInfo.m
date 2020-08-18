@@ -64,7 +64,7 @@ struct = jsondecode(char(strjoin(string(cast( webread('https://gemma.msl.ubc.ca/
 struct = struct.data;
 end
 
-
+structArray = struct;
 %save('nextGemmaAPI','structArray')
 temptable2 = struct2table(structArray); 
 vec = 1:size(temptable2,2);
