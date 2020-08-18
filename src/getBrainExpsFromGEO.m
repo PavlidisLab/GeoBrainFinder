@@ -38,6 +38,12 @@ if numWorkers >= 32 || numWorkers > maxNumCompThreads
     myParcluster = parcluster; 
     myParcluster.NumWorkers = numWorkers;
 end
+
+if string(geoEnd) == "autodetect" 
+geoEnd = strcat('GSE',num2str(max(getLastFewMonthsGEO(3))));
+disp(strcat("Detected ", string(geoEnd), " as the last GEO accession available"))
+end
+
 alwaysB = [str2num(geoStart(4:end)) : str2num(geoEnd(4:end)) ]';
 A = alwaysB(startLookingFromIndex:end);
 toSkip = [];
